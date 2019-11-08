@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ルート検索</title>
+  <style>html,body{height:100%;}body{padding:0;margin:0;}h1{padding:0;margin:0;font-size:50%;}div{float:left;}</style>
+</head>
+<body>
+  <!--  1,Map開始  -->
+  <div id="mymap" style="width:50%; height:99%; float:left;"></div>
+  <!--  1,Map終了  -->
+
+  <!--  2,検索開始  -->
+  <div>
+    From:<input type="text" id="from" value="御茶ノ水">
+    To:<input type="text" id="to" value="表参道">
+    <select id="mode">
+      <option value="walking">walking</option>
+      <option value="driving">driving</option>
+    </select>
+    <input type="button" id="search" value="ルート検索">
+  </div>
+  <div id="direction"></div>
+  <!--  2,検索終了  -->
+
+  <script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AqptSMyQ1R1pUrvQHB_X4todCydLDgCyUkbQOiXOvpMSBgaSJaYEZdF0GNgQ8XTy' async defer></script>
+  <script src="../js/BmapQuery.js"></script>
+  <script>
+    function GetMap(){
+      const map = new Bmap("#mymap");
+      map.startMap(35.665100, 139.712000, "load", 15);
+      document.getElementById("search").onclick = function(){
+        const from = document.getElementById("from").value;
+        const to   = document.getElementById("to").value;
+        const mode = document.getElementById("mode").value;
+        const array = ["新宿","恵比寿"];
+        map.direction("#direction",　mode,　from,　to,　array);
+      };
+    }
+  </script>
+</body>
+</html>
